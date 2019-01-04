@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
+    "express-swagger-generator": "^1.1.11",
     "mongoose": "^5.4.1"
   },
   "devDependencies": {

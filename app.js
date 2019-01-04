@@ -7,6 +7,14 @@ let eventsRoutes = require('./routes/events-routes');
 
 let app = express();
 
+//SWAGGER
+//let swag = require('swagger-ui-express');
+//let swagDoc = require('./swagger.yaml');
+
+let swag = require('express-swagger-generator')(app);
+let options = require('./swagger');
+swag(options);
+//app.use('/api-docs', swag.serve, swag.setup(swagDoc));
 
 /*app.use((req, resp, next) => {
     console.log("test");
