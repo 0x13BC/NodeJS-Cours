@@ -13,7 +13,8 @@ let controller = require('../controllers/events-controller');
  */
 
 /**
- * @route GET /api/event/search
+ * Search events
+ * @route GET /api/events/search
  * @group events - Operations about events
  * @param {string} name.query - name of event
  * @param {string} city.query - city of event
@@ -24,14 +25,49 @@ let controller = require('../controllers/events-controller');
 router.route('/search')
     .get(controller.searchEvent)
 
-
+/**
+ * @route GET /api/events
+ * @group events - Operations about events
+ * @returns {Array.<Event>} 200 - An array of events
+ * @returns {Error} - Unexpected error
+ */
+/**
+ * @route POST /api/events
+ * @group events - Operations about events
+ * @param {Event} event - Event to insert
+ * @returns {Event} 200 - Event created
+ * @returns {Error} - Unexpected error
+ */
 router.route('/')
     .get(controller.getAllEvents)
     .post(controller.createEvent);
 
+/**
+ * @route GET /api/events/:id
+ * @group events - Operations about events
+ * @param {string} id - id to find event
+ * @returns {Event} 200 - An event
+ * @returns {Error} - Unexpected error
+ */
+/**
+* @route PUT /api/events/:id
+* @group events - Operations about events
+* @param {string} id.query - id to update event
+* @param {Event} event - Event to update
+* @returns {Event} 200 - Event updated
+* @returns {Error} - Unexpected error
+*/
+/**
+ * @route DELETE /api/events/:id
+ * @group events - Operations about events
+ * @param {string} id - id to remove event
+ * @returns {Event} 200 - Event deleted
+ * @returns {Error} - Unexpected error
+ */
 router.route('/:id')
-    .get(controller.getEventById);
-
+    .get(controller.getEventById)
+    .put(controller.updateEvent)
+    .delete(controller.deleteEvent);
 
 
 module.exports = router;
