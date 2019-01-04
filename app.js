@@ -5,6 +5,9 @@ let bodyParser = require('body-parser');
 let usersRoutes = require('./routes/users-routes');
 let eventsRoutes = require('./routes/events-routes');
 let authController = require('./controllers/authentication-controller');
+
+let auth = require('./utils/validate-token');
+
 let app = express();
 
 //SWAGGER
@@ -31,7 +34,7 @@ app.use(bodyParser.json()); //BODY
 app.post('/authentication', authController);
 
 app.use('/api/users', usersRoutes);
-app.use('/api/events', eventsRoutes);
+app.use('/api/events', auth, eventsRoutes);
 
 app.route('/').get((req, resp) => {
     resp.json('WEB API');
@@ -40,3 +43,4 @@ app.route('/').get((req, resp) => {
 app.listen(8888);
 
 module.exports = app;
+

@@ -10,9 +10,10 @@ module.exports = (req, resp) => {
 
     users.findOne({ mail: login, password: password }, (err, data) => {
         if (data) {
-            jwt.sign({ id: data._id, login: data.mail }, conf.key, { expiresIn: 1440 });
+            let token = jwt.sign({ id: data._id, login: data.mail }, conf.key, { expiresIn: 1440 });
+            resp.json({ success: true, message: 'login OK', token: token });
         } else {
-            resp.status(400).json({ success: false, message: 'login/password incorrect.' });
+            resp.status(400).json({ success: false, message: 'login/password invalid.' });
         }
     });
 
