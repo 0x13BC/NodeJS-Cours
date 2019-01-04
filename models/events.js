@@ -16,7 +16,7 @@ module.exports = mongoose.model('Event', new Schema({
         required: 'Date de fin obligatoire'
     },
     street: String,
-    zipCode: Boolean,
+    zipCode: String,
     city: {
         type: String,
         required: 'Ville obligatoire'

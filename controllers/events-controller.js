@@ -15,6 +15,20 @@ exports.getEventById = (req, resp) => {
     });
 }
 
+// GET /search?....
+exports.searchEvent = (req, resp) => {
+    const params = req.query;
+    let pred = {};
+    if (params.name)
+        pred.name = { $regex: params.name, $options: 'i' };;
+    if (params.sartdate)
+        pred.startDate = params.sartdate;
+    if (params.city)
+        pred.city = { $regex: params.city, $options: 'i' };
+
+    events.find(pred, (err, data) => resp.json(extractData(err, data)));
+}
+
 //POST /
 exports.createEvent = (req, resp) => {
     let obj = new events(req.body);
