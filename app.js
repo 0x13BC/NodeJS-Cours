@@ -4,7 +4,7 @@ let bodyParser = require('body-parser');
 
 let usersRoutes = require('./routes/users-routes');
 let eventsRoutes = require('./routes/events-routes');
-
+let authController = require('./controllers/authentication-controller');
 let app = express();
 
 //SWAGGER
@@ -27,6 +27,8 @@ mongoose.connect(confMongo.database);
 
 app.use(bodyParser.urlencoded({ extended: false })); //URL
 app.use(bodyParser.json()); //BODY
+
+app.post('/authentication', authController);
 
 app.use('/api/users', usersRoutes);
 app.use('/api/events', eventsRoutes);
