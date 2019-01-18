@@ -26,15 +26,15 @@ swag(options);
 
 const confMongo = require('./configurations/config-mongo');
 // mongoose.Promise = global.Promise; V4
-mongoose.connect(confMongo.database);
+mongoose.connect(confMongo.database, { useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({ extended: false })); //URL
 app.use(bodyParser.json()); //BODY
 
 app.post('/authentication', authController);
 
-app.use('/api/users', usersRoutes);
-app.use('/api/events', auth, eventsRoutes);
+app.use('/api/users', auth.token,usersRoutes);
+app.use('/api/events', auth.token, eventsRoutes);
 
 app.route('/').get((req, resp) => {
     resp.json('WEB API');

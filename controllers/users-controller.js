@@ -19,8 +19,15 @@ exports.getUserById = (req, resp) => {
 //POST /
 exports.createUser = (req, resp) => {
     let obj = new users(req.body);
-    obj.password = sha1(obj.password);
-    obj.save((err, data) => resp.json(extractData(err, data)));
+    let regexp = /^.(?=.*\d)(?=.*[a-z](?=.*[A-Z])(?=.*[^\_da-zA-Z])){6,}."$/; // Contien chiffre minuscule majuscule pas de caractère spéciaux et minimun 6 caractères
+    if(regexp.test(obj.password)){
+        obj.password = sha1(obj.password);
+
+        obj.save((err, data) => resp.json(extractData(err, data)));
+    }
+    else{
+        resp.status(400).json({ succes: "failed", message: "password failed" });
+    }
 }
 
 // PUT /:id

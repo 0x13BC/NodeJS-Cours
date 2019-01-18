@@ -6,7 +6,9 @@ let conf = require('../configurations/config-mongo');
 
 module.exports = (req, resp) => {
     const login = req.body.login;
+    console.log("login:" + login);
     const password = sha1(req.body.password);
+    console.log("password:" + req.body.password);
 
     users.findOne({ mail: login, password: password }, (err, data) => {
         if (data) {

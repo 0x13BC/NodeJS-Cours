@@ -1,6 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let controller = require('../controllers/events-controller');
+let auth = require('../utils/validate-token')
 
 /**
  * @typedef Event
@@ -67,7 +68,7 @@ router.route('/')
 router.route('/:id')
     .get(controller.getEventById)
     .put(controller.updateEvent)
-    .delete(controller.deleteEvent);
+    .delete(auth.admin,controller.deleteEvent);
 
 
 module.exports = router;
