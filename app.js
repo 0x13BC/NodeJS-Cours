@@ -5,10 +5,12 @@ let bodyParser = require('body-parser');
 let usersRoutes = require('./routes/users-routes');
 let eventsRoutes = require('./routes/events-routes');
 let authController = require('./controllers/authentication-controller');
+let cors = require('cors')
 
 let auth = require('./utils/validate-token');
 
 let app = express();
+app.use(cors());
 
 //SWAGGER
 //let swag = require('swagger-ui-express');
@@ -33,7 +35,7 @@ app.use(bodyParser.json()); //BODY
 
 app.post('/authentication', authController);
 
-app.use('/api/users', auth.token,usersRoutes);
+app.use('/api/users',usersRoutes);
 app.use('/api/events', auth.token, eventsRoutes);
 
 app.route('/').get((req, resp) => {

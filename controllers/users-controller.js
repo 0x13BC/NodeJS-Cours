@@ -9,6 +9,7 @@ exports.getAllUsers = (req, resp) => {
 }
 
 // GET /:id
+//api/users
 exports.getUserById = (req, resp) => {
     console.log(`ID: ${req.params.id}`);
     users.findById(req.params.id, (err, data) => {
@@ -19,10 +20,14 @@ exports.getUserById = (req, resp) => {
 //POST /
 exports.createUser = (req, resp) => {
     let obj = new users(req.body);
-    let regexp = /^.(?=.*\d)(?=.*[a-z](?=.*[A-Z])(?=.*[^\_da-zA-Z])){6,}."$/; // Contien chiffre minuscule majuscule pas de caractère spéciaux et minimun 6 caractères
+    let regexp = /^.*(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\da-zA-Z]){6,}.*$/; // Contient chiffre minuscule majuscule pas de caractère spéciaux et minimun 6 caractères
+    const login = obj.login;
+    console.log(req.body);
+    console.log(obj.password);
+    console.log(regexp.test(obj.password));
     if(regexp.test(obj.password)){
         obj.password = sha1(obj.password);
-
+        
         obj.save((err, data) => resp.json(extractData(err, data)));
     }
     else{
