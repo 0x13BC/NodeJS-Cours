@@ -36,7 +36,7 @@ app.use(bodyParser.json()); //BODY
 app.post('/authentication', authController);
 
 app.use('/api/users',usersRoutes);
-app.use('/api/events', auth.token, eventsRoutes);
+app.use('/api/events',eventsRoutes);
 
 app.route('/').get((req, resp) => {
     resp.json('WEB API');
